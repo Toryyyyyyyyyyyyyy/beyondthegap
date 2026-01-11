@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Respect and Integration{% endblock %}
+
+{% block content %}
+<div class="header-section">
+    <h2>Welcome to the Initiative Website</h2>
+    <p>Click on the section titles to explore the details</p>
+</div>
+
+<div class="content-grid">
+    {% for content in contents %}
+    <div class="content-card">
+        <div class="content-image">
+            {% if content.image %}
+            <img src="{{ url_for('uploaded_file', filename=content.image) }}" alt="{{ content.title }}">
+            {% else %}
+            <div class="no-image">No image available</div>
+            {% endif %}
+        </div>
+        <div class="content-info">
+            <h3><a href="{{ url_for('content_detail', content_id=content.id) }}">{{ content.title }}</a></h3>
+            <p class="intro">{{ content.intro }}</p>
+            <div class="content-meta">
+                <span class="date">Published: {{ content.created_at[:10] }}</span>
+                <a href="{{ url_for('content_detail', content_id=content.id) }}" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="no-content">
+        <p>暂无内容，请到<a href="/admin">管理页面</a>添加内容</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

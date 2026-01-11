@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}{{ content.title }} - Respect and Integration{% endblock %}
+
+{% block content %}
+<div class="detail-container">
+    <a href="/" class="back-link"><i class="fas fa-arrow-left"></i> Return to Home</a>
+    
+    <article class="content-detail">
+        <h1>{{ content.title }}</h1>
+        
+        <div class="detail-meta">
+            <span class="date">Published: {{ content.created_at[:10] }}</span>
+            {% if not content.is_active %}
+            <span class="status inactive">（Disabled）</span>
+            {% endif %}
+        </div>
+        
+        {% if content.image %}
+        <div class="detail-image">
+            <img src="{{ url_for('uploaded_file', filename=content.image) }}" alt="{{ content.title }}">
+        </div>
+        {% endif %}
+        
+        <div class="intro-box">
+            <h3>Summary</h3>
+            <p>{{ content.intro }}</p>
+        </div>
+        
+        <div class="detail-content">
+<!--            <div class="content-text">{{ content.detail }}</div>-->
+            <div class="content-text"> {{ content.detail|safe }} </div>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="/" class="btn">Return to Home</a>
+<!--            <a href="/admin" class="btn secondary">管理内容</a>-->
+        </div>
+    </article>
+</div>
+{% endblock %}
